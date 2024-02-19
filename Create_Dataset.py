@@ -1,10 +1,10 @@
 import os
-import numpy as np
-import cv2
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.model_selection import train_test_split
 import string
 
+import numpy as np
+from sklearn.model_selection import train_test_split
+# import cv2
+from sklearn.preprocessing import OneHotEncoder
 
 categories = [[l] for l in list(string.ascii_uppercase)]
 categories.insert(0, ['0']) #Creates the classes required for the sign language data
@@ -44,6 +44,12 @@ def create_dataset(img_folder): #Creates a dataset
             class_name.append(d[sub_folder])
 
     x_train, x_test, y_train, y_test = train_test_split(im, class_name, test_size = 0.33)
+
+    x_train = np.array(x_train)
+    x_test = np.array(x_test)
+    y_train = np.array(y_train)
+    y_test = np.array(y_test)
+
 
     
     return x_train, x_test, y_train, y_test,d
