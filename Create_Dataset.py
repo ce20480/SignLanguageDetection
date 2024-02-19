@@ -3,7 +3,7 @@ import string
 
 import numpy as np
 from sklearn.model_selection import train_test_split
-# import cv2
+import cv2
 from sklearn.preprocessing import OneHotEncoder
 
 categories = [[l] for l in list(string.ascii_uppercase)]
