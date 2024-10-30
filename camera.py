@@ -25,6 +25,7 @@ while True:
         for i in output.multi_hand_landmarks:
             mpDraw.draw_landmarks(frame, i, mpHands.HAND_CONNECTIONS,
             landmark_drawing_spec=mpDraw.DrawingSpec(color=(0,255,0), thickness=2, circle_radius=5))
+            print(i)
     
     
  
