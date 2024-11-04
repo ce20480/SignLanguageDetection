@@ -1,6 +1,5 @@
 
-
-
+import cv2
 # For webcam input:
 cap = cv2.VideoCapture(0)
 with mp_hands.Hands(

@@ -6,10 +6,13 @@ from sklearn.model_selection import train_test_split
 import cv2
 from sklearn.preprocessing import OneHotEncoder
 
+# Random seed for reproducibility
+np.random.seed(42)
+
 categories = [[l] for l in list(string.ascii_uppercase)]
 categories.insert(0, ['0']) #Creates the classes required for the sign language data
 # define one hot encoding
-encoder = OneHotEncoder(sparse=False)
+encoder = OneHotEncoder(sparse_output=False)
 # transform data
 onehot = encoder.fit_transform(categories) #Fits each letter A,B,C -> a one hot
 
@@ -37,9 +40,9 @@ def create_dataset(img_folder): #Creates a dataset
         for file in listdir_nohidden(os.path.join(img_folder,sub_folder)): #Gets 'file' i.e. individual image in folder
 
             image = cv2.imread(os.path.join(img_folder,sub_folder,file)) #read image
-            image = np.array(image) #turn image into an array
-            image = image.astype('float32') #sets datatype of array
-            image /= 255 #normalise
+            # image = np.array(image) #turn image into an array
+            # image = image.astype('float32') #sets datatype of array
+            # image /= 255 #normalise
             im.append(image)
             class_name.append(d[sub_folder])
 
