@@ -9,12 +9,12 @@ import string
 class ASLDataset:
     """Handles ASL dataset loading, splitting, and transformations"""
     
-    def __init__(self, data_dir, test_size=0.2, random_state=42):
+    def __init__(self, data_dir=None, test_size=0.2, random_state=42):
         """
         Initialize the ASL dataset handler.
         
         Args:
-            data_dir (str): Directory containing the data
+            data_dir (str, optional): Directory containing the data
             test_size (float): Proportion of data to use for testing
             random_state (int): Random seed for reproducibility
         """
@@ -55,6 +55,9 @@ class ASLDataset:
         Returns:
             tuple: (X_train, X_test, y_train, y_test) - Train/test split data
         """
+        if self.data_dir is None:
+            raise ValueError("data_dir must be specified to load from directory")
+            
         images = []
         labels = []
         
@@ -89,21 +92,55 @@ class ASLDataset:
         else:
             raise ValueError("No images found in the data directory")
     
-    def load_from_csv(self, x_file, y_file):
+    def load_from_csv(self, x_train_file, y_train_file, x_test_file=None, y_test_file=None):
         """
         Load preprocessed data from CSV files.
         
         Args:
-            x_file (str): Path to features CSV file
-            y_file (str): Path to labels CSV file
+            x_train_file (str): Path to training features CSV file
+            y_train_file (str): Path to training labels CSV file
+            x_test_file (str, optional): Path to test features CSV file
+            y_test_file (str, optional): Path to test labels CSV file
             
         Returns:
-            tuple: (X_train, X_test, y_train, y_test) - Train/test split data
+            tuple: (X_train, X_test, y_train, y_test)
         """
-        X = pd.read_csv(x_file).values
-        y = pd.read_csv(y_file).values
+        # Load training data
+        self.X_train = pd.read_csv(x_train_file).values
+        self.y_train = pd.read_csv(y_train_file).values
         
-        return self.split_data(X, y)
+        # Load test data if provided
+        if x_test_file and y_test_file:
+            self.X_test = pd.read_csv(x_test_file).values
+            self.y_test = pd.read_csv(y_test_file).values
+        else:
+            # Split training data if test files not provided
+            return self.split_data(self.X_train, self.y_train)
+        
+        return self.X_train, self.X_test, self.y_train, self.y_test
+    
+    def load_processed_data(self, processed_dir):
+        """
+        Load preprocessed data from a directory containing train/test split files.
+        
+        Args:
+            processed_dir (str): Directory containing processed data files
+            
+        Returns:
+            tuple: (X_train, X_test, y_train, y_test)
+        """
+        # Define file paths
+        x_train_path = os.path.join(processed_dir, "x_train.csv")
+        y_train_path = os.path.join(processed_dir, "y_train.csv")
+        x_test_path = os.path.join(processed_dir, "x_test.csv")
+        y_test_path = os.path.join(processed_dir, "y_test.csv")
+        
+        # Check if files exist
+        if not all(os.path.exists(f) for f in [x_train_path, y_train_path, x_test_path, y_test_path]):
+            raise FileNotFoundError(f"One or more data files not found in {processed_dir}")
+        
+        # Load data
+        return self.load_from_csv(x_train_path, y_train_path, x_test_path, y_test_path)
     
     def split_data(self, X, y):
         """
