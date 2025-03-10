@@ -1,5 +1,3 @@
-from asl.models.coords_model import CoordsModel
-from asl.models.model_factory import ModelFactory
 import torch
 import numpy as np
 import os
@@ -7,6 +5,8 @@ import sys
 
 # Add the project root directory to Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from asl.models.coords_model import CoordsModel
+from asl.models.model_factory import ModelFactory
 
 # Test model creation
 input_size = 63  # 21 landmarks with 3 coordinates each
