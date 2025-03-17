@@ -11,11 +11,17 @@ setup(
         "matplotlib>=3.3.0",
         "scikit-learn>=0.24.0",
         "mediapipe>=0.8.9",
-        "pyyaml>=5.4.0"
     ],
-    author="ASL Detection Team",
+    author="Avini",
     author_email="avinibusiness@gmail.com",
-    description="A modular framework for ASL sign language detection",
-    keywords="asl, sign language, computer vision, deep learning",
-    python_requires=">=3.7",
+    description="ASL detection using computer vision and deep learning",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/yourusername/SignLanguageDetection",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires="3.9-3.12",
 )
