@@ -1,4 +1,4 @@
-# asl/__init__.py
+# sl_detection/__init__.py
 from sl_detection.data.contribution import ContributionManager
 from sl_detection.data.preprocessor import ASLPreprocessor
 from sl_detection.detection.hand_detector import HandDetector

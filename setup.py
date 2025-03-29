@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="sl_detection",
-    version="0.1.5",
+    version="0.1.6",
     packages=find_packages(include=["sl_detection", "sl_detection.*"]),
     install_requires=[
         "numpy>=1.19.0",
